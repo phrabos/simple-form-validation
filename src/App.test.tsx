@@ -4,6 +4,6 @@ import App from './App';
 
 test('renders learn react link', () => {
 	render(<App />);
-	const header = screen.getByRole('heading', { name: 'form-heading' });
-	expect(header).toBeInTheDocument();
+	const header = screen.getByRole('heading', { name: 'form-header' });
+	expect(header).toHaveTextContent('Basic Form');
 });
