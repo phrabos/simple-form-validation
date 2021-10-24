@@ -7,6 +7,12 @@ type FormInputObj = {
 	email: string;
 	phone: string;
 };
+type FormErrorsObj = {
+	firstName?: string;
+	lastName?: string;
+	email?: string;
+	phone?: string;
+};
 function App(): JSX.Element {
 	const [formInput, setFormInput] = useState<FormInputObj>({
 		firstName: '',
@@ -16,6 +22,38 @@ function App(): JSX.Element {
 	});
 
 	const [showFormResults, setShowFormResults] = useState(false);
+	const [formErrors, setFormErrors] = useState<FormErrorsObj>(
+		{} as FormErrorsObj
+	);
+
+	const validateForm = (
+		firstName: string,
+		lastName: string,
+		email: string,
+		phone: string
+	): FormErrorsObj => {
+		let errors: FormErrorsObj = {};
+		if (!firstName) errors.firstName = 'first name is required';
+		if (!lastName) errors.lastName = 'last name is required';
+		if (!email) errors.email = 'email is required';
+		if (!phone) errors.phone = 'phone is required';
+		return errors;
+	};
+
+	const handleSubmit = (event: React.FormEvent<HTMLFormElement>): void => {
+		event.preventDefault();
+		const errors = validateForm(
+			formInput.firstName,
+			formInput.lastName,
+			formInput.email,
+			formInput.phone
+		);
+		console.log(errors);
+		if (Object.keys(errors).length === 0) {
+			setShowFormResults(true);
+			setFormErrors({});
+		} else setFormErrors(errors);
+	};
 
 	return (
 		<div
@@ -25,20 +63,18 @@ function App(): JSX.Element {
 				margin: '5px',
 				justifyContent: 'center',
 				alignItems: 'center',
+				width: '100vw',
 			}}
 		>
 			<h1 aria-label="form-header" className="App">
 				Basic Form
 			</h1>
 			<form
-				onSubmit={(event) => {
-					event.preventDefault();
-					setShowFormResults(true);
-				}}
+				onSubmit={handleSubmit}
 				style={{
 					display: 'flex',
 					flexDirection: 'column',
-					width: '50vw',
+					width: '25vw',
 					margin: '5px',
 				}}
 			>
@@ -50,6 +86,10 @@ function App(): JSX.Element {
 						setFormInput({ ...formInput, firstName: event.target.value })
 					}
 				/>
+				{formErrors.firstName && (
+					<span style={{ color: 'red' }}>{formErrors.firstName}</span>
+				)}
+
 				<input
 					type="text"
 					placeholder="last name"
@@ -58,6 +98,9 @@ function App(): JSX.Element {
 						setFormInput({ ...formInput, lastName: event.target.value })
 					}
 				/>
+				{formErrors.lastName && (
+					<span style={{ color: 'red' }}>{formErrors.lastName}</span>
+				)}
 				<input
 					type="text"
 					placeholder="email"
@@ -66,6 +109,9 @@ function App(): JSX.Element {
 						setFormInput({ ...formInput, email: event.target.value })
 					}
 				/>
+				{formErrors.email && (
+					<span style={{ color: 'red' }}>{formErrors.email}</span>
+				)}
 				<input
 					type="text"
 					placeholder="phone"
@@ -74,6 +120,9 @@ function App(): JSX.Element {
 						setFormInput({ ...formInput, phone: event.target.value })
 					}
 				/>
+				{formErrors.phone && (
+					<span style={{ color: 'red' }}>{formErrors.phone}</span>
+				)}
 				<button type="submit">submit</button>
 			</form>
 			{showFormResults && (
@@ -88,8 +137,9 @@ function App(): JSX.Element {
 				onClick={() => {
 					setFormInput({ firstName: '', lastName: '', email: '', phone: '' });
 					setShowFormResults(false);
+					setFormErrors({});
 				}}
-				style={{ width: '50vw', margin: '5px' }}
+				style={{ width: '25vw', margin: '5px' }}
 			>
 				reset form
 			</button>
