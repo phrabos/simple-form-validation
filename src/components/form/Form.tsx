@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 
-import './App.css';
 type FormInputObj = {
 	firstName: string;
 	lastName: string;
@@ -13,7 +12,7 @@ type FormErrorsObj = {
 	email?: string;
 	phone?: string;
 };
-function App(): JSX.Element {
+const Form = (): JSX.Element => {
 	const [formInput, setFormInput] = useState<FormInputObj>({
 		firstName: '',
 		lastName: '',
@@ -145,6 +144,6 @@ function App(): JSX.Element {
 			</button>
 		</div>
 	);
-}
+};
 
-export default App;
+export default Form;
