@@ -25,7 +25,6 @@ const Dropdown = (): JSX.Element => {
 				value={selectedFruit}
 				onChange={(event) => {
 					setSelectedFruit(event.target.value);
-					console.log(event.target);
 				}}
 			>
 				<option>--Pick a Fruit--</option>
@@ -35,7 +34,7 @@ const Dropdown = (): JSX.Element => {
 					</option>
 				))}
 			</select>
-			{selectedFruit ? (
+			{selectedFruit[0] !== '-' ? (
 				<p>You selected {selectedFruit}!</p>
 			) : (
 				<p>select a fruit above</p>
