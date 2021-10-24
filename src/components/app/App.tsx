@@ -1,24 +1,22 @@
 import React from 'react';
-import Dropdown from '../dropdown/Dropdown';
-import Form from '../form/Form';
-import Radio from '../radio/Radio';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import Inputs from '../Inputs';
+import Users from '../users/Users';
 
 import './App.css';
 
 function App(): JSX.Element {
 	return (
-		<div
-			style={{
-				display: 'flex',
-				flexDirection: 'column',
-				justifyContent: 'center',
-				alignItems: 'center',
-			}}
-		>
-			<Form />
-			<Dropdown />
-			<Radio />
-		</div>
+		<Router>
+			<Switch>
+				<Route exact path="/">
+					<Inputs />
+				</Route>
+				<Route exact path="/users">
+					<Users />
+				</Route>
+			</Switch>
+		</Router>
 	);
 }
 
