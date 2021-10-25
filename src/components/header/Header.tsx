@@ -10,6 +10,9 @@ const Header = (): JSX.Element => (
 			<Link style={{ color: 'white', margin: '10px' }} to="/users">
 				Users API
 			</Link>
+			<Link style={{ color: 'white', margin: '10px' }} to="/intermediate">
+				Intermediate Users API
+			</Link>
 		</nav>
 	</header>
 );

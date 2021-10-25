@@ -4,6 +4,7 @@ import { fetchUser } from './userAPI';
 export type User = {
 	gender: string;
 	name: {
+		id?: string;
 		title: string;
 		first: string;
 		last: string;
