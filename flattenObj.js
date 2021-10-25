@@ -13,6 +13,8 @@ const obj = {
 	},
 };
 
+const numsArr = ['one', 'two', ['three', 'four', ['five', 'six', ['seven']]]];
+
 const flattenObj = (userObj, prefix = '') => {
 	const keysArr = Object.keys(userObj);
 	const flatObj = keysArr.reduce((acc, curr) => {
@@ -22,8 +24,21 @@ const flattenObj = (userObj, prefix = '') => {
 		else acc[pre + curr] = userObj[curr];
 		return acc;
 	}, {});
-	//console.log(flatObj);
+
 	return flatObj;
 };
 
-console.log(flattenObj(obj));
+const flattenArr = (arr) => {
+	return arr.reduce((acc, curr) => {
+		if (Array.isArray(curr)) {
+			//const deepNest = flattenArr(curr)
+			acc = [...acc, ...flattenArr(curr)];
+		} else acc = [...acc, curr];
+		return acc;
+	}, []);
+};
+
+const newFlatObj = flattenObj(obj);
+console.log(newFlatObj);
+const newFlatArr = flattenArr(numsArr);
+//console.log(newFlatArr);
